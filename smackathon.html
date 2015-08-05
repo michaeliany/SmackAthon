@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>Top Movies</title>
+  
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+  <script>
+
+
+function display_movies(target_element, movies){
+  
+  console.log('in display movies function', movies);
+  var movie_container = $(target_element);
+  for(var i = 0; i < movies.length ; i++){
+    var movie_rank = movies[i].rank;
+    var movie_title = movies[i].title;
+    var movie_plot = movies[i].plot;
+    var movie_director = movies[i].director;
+    var movie_image = movies[i].image;
+
+    var movie_box = $('<div>', {
+          class:'col-md-10 col-md-offset-1 col-sm-12 movie_box clearfix',
+          movie_id: i
+    });
+
+    var movie_rank_span = $('<span>',{
+      class:  'movie_rank col-md-2 col-sm-2',
+      text: movie_rank
+    })
+
+    var movie_image = $('<img>',{
+      src: movie_image,
+      class:'thumnail movie_image col-sm-4 col-xs-12'
+    });
+
+    var movie_info_div = $('<div>',{
+      class: 'movie_info col-sm-8 col-xs-12',
+    });
+ 
+    var movie_title_span = $('<span>',{
+      class: 'col-md-6 col-sm-12 movie_title',
+      text: movie_title,
+    });
+ 
+    var movie_director_span = $('<span>',{
+      class: 'col-md-4 col-sm-12 movie_director',
+      text: movie_director
+    });
+ 
+
+    movie_info_div.append(movie_rank_span, movie_title_span, movie_director_span);
+    movie_box.append(movie_image, movie_info_div);
+    movie_container.append(movie_box);
+  }
+}
+ 
+
+function display_selected_movie () {
+    console.log('in display selected movie');
+};
+
+
+$(document).ready(function() {
+get_movies(25);
+});
+  
+function get_movies_finished(movies) {
+    console.log(movies);
+    console.log('in doc ready', movies);
+    display_movies('#top_movies', movies);
+      $('top_movies').on('click', '.movie_box', function(){
+    var the_movie_index = parseInt($(this).attr('movie_id'))
+  })
+}
+
+function get_movies(num_movies) {
+    $.ajax({
+        dataType: 'json',
+        url: "https://itunes.apple.com/us/rss/topmovies/limit=" + num_movies + "/json",
+        success: function (result) {
+            console.log(result);
+            var movies = result.feed.entry;
+            movies = clean_up_array(movies);
+            get_movies_finished(movies);
+        }
+    });
+}
+
+          function clean_up_array(array) {
+          var result_array = [];
+          for (var i = 0; i < array.length; i++) {
+          var movie = {};
+          movie.title = array[i]["im:name"].label;
+          movie.director = array[i]["im:artist"].label;
+          movie.image = array[i]["im:image"][2].label;
+                  movie.plot = array[i]["summary"].label;
+                  movie.rank = i + 1;
+          result_array.push(movie);
+          }
+          return result_array;
+          }
+
+  </script>
+
+</head>
+<body>
+
+<header>
+  <h1 class="top_title">iTunes Top Movies</h1>
+
+</header>
+
+<div id="top_movies">
+</div>
+<div id="movie_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+ 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title text-capitalize"></h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+ 
+  </div>
+</div>

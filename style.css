@@ -1,0 +1,40 @@
+
+
+
+
+    .movie_image{
+      max-width: 12.5%;
+      height: auto;
+    }
+
+    
+    .movie_box {
+    	margin: 10px;
+    	border: 1px solid;
+    	color: white;
+    	font-size: 1.5em;
+    }
+
+    .top_title{
+    	text-align: center;
+    	color: white;
+    }
+
+    body {
+    	background-image: url('http://www.thestackbarbq.com/wp-content/uploads/2014/04/wood-background-1600x1200.jpg');
+    }
+
+    .movie_rank {
+    	margin-top: 20px;
+    	font-size: 2.25em;
+    	color: orange;
+    }
+
+
+    .movie_title {
+    	margin-top: 20px;
+    }
+
+    .movie_director {
+    	margin-top: 20px;
+    }
