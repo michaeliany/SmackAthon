@@ -11,20 +11,10 @@
 
   <script>
 
-    var movie_array = [
-    {title: 'Get Hard', director: 'Etan Cohen', plot: 'When millionaire hedge fund manager James King (Ferrell) is nailed for fraud and bound for a stretch in San Quentin, the judge gives him 30 days to get his affairs in order. Desperate, he turns to Darnell Lewis (Hart) to prep him for a life behind bars. But despite James one-percenter assumptions, Darnell is a hard-working small business owner who has never received a parking ticket, let alone been to prison. Together, the two men do whatever it takes for James to get hard and, in the process, discover how wrong they were about a lot of things – including each other. Also includes the UNRATED cut that features hilarious footage not seen in theaters!', image: 'http://static.rogerebert.com/uploads/movie/movie_poster/get-hard-2015/large_1Xhk6o9Re7goDWsYwY9DOkWtKjx.jpg',
-    },
-    
-    {title: 'Bad Movie', director: 'Chad Culp', plot:'laksjfdlkasd asldkf asdflksjf lasdflkasd alssosd asdfasd fasodfiasd asdflkasdf asddfoasdidf asdflasd  asdf oasidf adsdfadslfkh asdf oaisdfn  asidfasdf', image: 'http://static.rogerebert.com/uploads/movie/movie_poster/get-hard-2015/large_1Xhk6o9Re7goDWsYwY9DOkWtKjx.jpg',
-    }
-    ];
 
-
-
-function display_movies(target_element){
+function display_movies(target_element, movies){
   
-  movies = movie_array;
-  console.log('in display movies function', movie_array);
+  console.log('in display movies function', movies);
   var movie_container = $(target_element);
   for(var i = 0; i < movies.length ; i++){
     var movie_title = movies[i].title;
@@ -37,9 +27,11 @@ function display_movies(target_element){
           movie_id: i
     });
 
+    
+
     var movie_image = $('<img>',{
       src: movie_image,
-      class:'thumbnail movie_image col-sm-4 col-xs-12'
+      class:'thumnail movie_image col-sm-4 col-xs-12'
     });
 
     var movie_info_div = $('<div>',{
@@ -63,14 +55,62 @@ function display_movies(target_element){
   }
 }
  
-  
-$(document).ready(function(){
-  console.log('in doc ready', movie_array);
-  display_movies('#top_movies');
-  });
 
+function display_selected_movie () {
+    console.log('in display selected movie');
+};
+
+
+$(document).ready(function() {
+get_movies(25);
+});
+  
+function get_movies_finished(movies) {
+    console.log(movies);
+    console.log('in doc ready', movies);
+    display_movies('#top_movies', movies);
+      $('top_movies').on('click', '.movie_box', function(){
+    var the_movie_index = parseInt($(this).attr('movie_id'))
+  })
+}
+
+function get_movies(num_movies) {
+    $.ajax({
+        dataType: 'json',
+        url: "https://itunes.apple.com/us/rss/topmovies/limit=" + num_movies + "/json",
+        success: function (result) {
+            console.log(result);
+            var movies = result.feed.entry;
+            movies = clean_up_array(movies);
+            get_movies_finished(movies);
+        }
+    });
+}
+
+          function clean_up_array(array) {
+          var result_array = [];
+          for (var i = 0; i < array.length; i++) {
+          var movie = {};
+          movie.title = array[i]["im:name"].label;
+          movie.director = array[i]["im:artist"].label;
+          movie.image = array[i]["im:image"][2].label;
+                  movie.plot = array[i]["summary"].label;
+                  movie.rank = i + 1;
+          result_array.push(movie);
+          }
+          return result_array;
+          }
 
   </script>
+
+  <style>
+    .movie_image{
+      max-width: 12.5%;
+      height: auto;
+    }
+
+  </style>
+
 
 </head>
 <body>
