@@ -5,6 +5,7 @@
   <title>Top Movies</title>
   
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
@@ -17,6 +18,7 @@ function display_movies(target_element, movies){
   console.log('in display movies function', movies);
   var movie_container = $(target_element);
   for(var i = 0; i < movies.length ; i++){
+    var movie_rank = movies[i].rank;
     var movie_title = movies[i].title;
     var movie_plot = movies[i].plot;
     var movie_director = movies[i].director;
@@ -27,7 +29,10 @@ function display_movies(target_element, movies){
           movie_id: i
     });
 
-    
+    var movie_rank_span = $('<span>',{
+      class:  'movie_rank col-md-2 col-sm-2',
+      text: movie_rank
+    })
 
     var movie_image = $('<img>',{
       src: movie_image,
@@ -49,7 +54,7 @@ function display_movies(target_element, movies){
     });
  
 
-    movie_info_div.append(movie_title_span, movie_director_span);
+    movie_info_div.append(movie_rank_span, movie_title_span, movie_director_span);
     movie_box.append(movie_image, movie_info_div);
     movie_container.append(movie_box);
   }
@@ -103,17 +108,14 @@ function get_movies(num_movies) {
 
   </script>
 
-  <style>
-    .movie_image{
-      max-width: 12.5%;
-      height: auto;
-    }
-
-  </style>
-
-
 </head>
 <body>
+
+<header>
+  <h1 class="top_title">iTunes Top Movies</h1>
+
+</header>
+
 <div id="top_movies">
 </div>
 <div id="movie_modal" class="modal fade" role="dialog">
