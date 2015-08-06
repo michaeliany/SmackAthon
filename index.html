@@ -113,9 +113,6 @@ function get_movies(num_movies) {
           }
 
   function display_one_movie(movies){
-      console.log(movies);
-      // console.log('display one movie called');
-
     var movie_element = $('#movie_modal');
 
     movie_element.find('.modal-title').text(movies.title);
@@ -123,6 +120,7 @@ function get_movies(num_movies) {
       src: movies.image,
       class:'img_responsive movies_image col-md-6 col-sm-12'
     }); 
+
     var movie_info_div = $('<div>',{
       class: 'movie_info',
     }); 
@@ -136,10 +134,22 @@ function get_movies(num_movies) {
       class: 'movie_rank_div',
       html: '<strong>Rank</strong> '+ movies.rank
     }); 
+
     var movie_plot_div = $('<div>',{
       class: 'movie_plot',
       html: '<strong>Plot</strong> '+ movies.plot
     });
+
+    var movie_trailer_div = $('<div>',{
+      class: 'vid col-md-6 movie_trailer',
+    });
+
+
+
+    // <div class="col-md-8">
+    // <div class="vid">
+    // <iframe width="560" height="315" src="//www.youtube.com/embed/ac7KhViaVqc" allowfullscreen=""></iframe>
+    // </div><!--./vid -->
 
       // Tried creating button dynamically to overcome speach bug, no success....
 
@@ -149,7 +159,7 @@ function get_movies(num_movies) {
 
     // });
     movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
-    movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
+    movie_element.find('.modal-body').html('').append(movies_image, movie_info_div, movie_trailer_div);
     movie_element.modal('show');
 
     
