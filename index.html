@@ -61,6 +61,25 @@ function display_movies(target_element, movies){
 }
 
 
+function talk_to_me (plot){
+  console.log('say it called');
+  var message = new SpeechSynthesisUtterance($().val());
+  var voices = speechSynthesis.getVoices();
+  message.voice = voices[$(this).val('Google US English')];
+  speechSynthesis.speak(message);
+
+  var interval = setInterval(function () {
+    voices = speechSynthesis.getVoices();
+    if (voices.length) clearInterval(interval); else return;
+
+    for (var i = 0; i < voices.length; i++) {
+        $("select").append("<option value=\"" + i + "\">" + voices[i].name + "</option>");
+    }
+}, 10);
+
+}
+
+
 $(document).ready(function() {
 get_movies(25);
 });
@@ -104,7 +123,6 @@ function get_movies(num_movies) {
           return result_array;
           }
 
-/////////////////////////////////
   function display_one_movie(movies){
       console.log(movies);
       console.log('display one movie called');
@@ -126,7 +144,7 @@ function get_movies(num_movies) {
     }); //we create a div with class
 
     var movie_rank_div = $('<div>',{
-      class: 'movie_rank',
+      class: 'movie_rank_div',
       html: '<strong>Rank</strong> '+ movies.rank
     }); 
     var movie_plot_div = $('<div>',{
@@ -137,8 +155,6 @@ function get_movies(num_movies) {
     movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
     movie_element.modal('show');
 }
-
-////////////////////////
 
   </script>
 
@@ -165,7 +181,8 @@ function get_movies(num_movies) {
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default close_button" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default say_it_button" onclick="talk_to_me()">Say It</button>
       </div>
     </div>
 
