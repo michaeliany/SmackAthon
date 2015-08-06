@@ -129,6 +129,7 @@ function display_one_movie(movies, index){
 		class: 'movie_plot',
 		html: '<strong>Plot</strong> ' + movies.plot
 	});
+	movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
 	$.ajax({
 		dataType: 'json',
 		data: {query: movies.title + " official trailer", maxResults: 1},
@@ -141,7 +142,6 @@ function display_one_movie(movies, index){
 				class: 'movie_trailer',
 				html: naginta
 			});
-			movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
 			movie_element.find('.modal-body').html('').append(movies_image, movie_info_div,movie_trailer);
 			movie_element.modal('show');
 		}
