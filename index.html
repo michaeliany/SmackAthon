@@ -61,25 +61,6 @@ function display_movies(target_element, movies){
 }
 
 
-function talk_to_me (plot){
-  console.log('say it called');
-  var message = new SpeechSynthesisUtterance($().val());
-  var voices = speechSynthesis.getVoices();
-  message.voice = voices[$(this).val('Google US English')];
-  speechSynthesis.speak(message);
-
-  var interval = setInterval(function () {
-    voices = speechSynthesis.getVoices();
-    if (voices.length) clearInterval(interval); else return;
-
-    for (var i = 0; i < voices.length; i++) {
-        $("select").append("<option value=\"" + i + "\">" + voices[i].name + "</option>");
-    }
-}, 10);
-
-}
-
-
 $(document).ready(function() {
 get_movies(25);
 });
@@ -154,6 +135,24 @@ function get_movies(num_movies) {
     movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
     movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
     movie_element.modal('show');
+
+    var message = new SpeechSynthesisUtterance(movies.plot);
+    var voices = speechSynthesis.getVoices();
+    message.voice = voices[$(this).val('Google US English')];
+   
+    $(".say_it_button").on("click", function () {
+    speechSynthesis.speak(message);
+    console.log('say it button clicked');
+    // Hack around voices bug
+    var interval = setInterval(function () {
+    voices = speechSynthesis.getVoices();
+    if (voices.length) clearInterval(interval); else return;
+
+    for (var i = 0; i < voices.length; i++) {
+        $("select").append("<option value=\"" + i + "\">" + voices[i].name + "</option>");
+    }
+}, 10);
+});
 }
 
   </script>
@@ -182,7 +181,7 @@ function get_movies(num_movies) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default close_button" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default say_it_button" onclick="talk_to_me()">Say It</button>
+        <button type="button" class="btn btn-default say_it_button">Say It</button>
       </div>
     </div>
 
