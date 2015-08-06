@@ -2,7 +2,7 @@
 <html>
 <head>
 
-  <title>Top Movies</title>
+  <title>Top iTunes Movies</title>
   
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -15,7 +15,7 @@
 
 function display_movies(target_element, movies){
   
-  console.log('in display movies function', movies);
+  // console.log('in display movies function', movies);
   var movie_container = $(target_element);
   for(var i = 0; i < movies.length ; i++){
     var movie_rank = movies[i].rank;
@@ -23,6 +23,7 @@ function display_movies(target_element, movies){
     var movie_plot = movies[i].plot;
     var movie_director = movies[i].director;
     var movie_image = movies[i].image;
+    var movie_price = movies[i].price;
 
     var movie_box = $('<div>', {
           class:'col-md-10 col-md-offset-1 col-sm-12 movie_box clearfix',
@@ -49,12 +50,17 @@ function display_movies(target_element, movies){
     });
 
     var movie_director_span = $('<span>',{
-      class: 'col-md-4 col-sm-12 movie_director',
+      class: 'col-md-2 col-sm-12 movie_director',
       text: movie_director
     });
 
+    var movie_price_span = $('<span>',{
+    class: 'col-md-2 col-sm-12 movie_price',
+    text: movie_price
+    });
 
-    movie_info_div.append(movie_rank_span, movie_title_span, movie_director_span);
+
+    movie_info_div.append(movie_rank_span, movie_title_span, movie_director_span, movie_price_span);
     movie_box.append(movie_image, movie_info_div);
     movie_container.append(movie_box);
   }
@@ -62,15 +68,16 @@ function display_movies(target_element, movies){
 
 
 $(document).ready(function() {
-get_movies(30);
+get_movies(25);
 });
   
 function get_movies_finished(movies) {
     console.log(movies);
-    console.log('in doc ready', movies);
+    // console.log('in doc ready', movies);
     display_movies('#top_movies', movies);
       $('#top_movies').on('click', '.movie_box', function(){
     var the_movie_index = parseInt($(this).attr('movie_id'))
+    console.log('the movie index this is ', this)
     console.log(the_movie_index);
     display_one_movie(movies[the_movie_index]);
 
@@ -95,10 +102,11 @@ function get_movies(num_movies) {
           for (var i = 0; i < array.length; i++) {
           var movie = {};
           movie.title = array[i]["im:name"].label;
+          movie.price = array[i]['im:price'].label;
           movie.director = array[i]["im:artist"].label;
           movie.image = array[i]["im:image"][2].label;
-                  movie.plot = array[i]["summary"].label;
-                  movie.rank = i + 1;
+          movie.plot = array[i]["summary"].label;
+          movie.rank = i + 1;
           result_array.push(movie);
           }
           return result_array;
@@ -106,23 +114,23 @@ function get_movies(num_movies) {
 
   function display_one_movie(movies){
       console.log(movies);
-      console.log('display one movie called');
+      // console.log('display one movie called');
 
-    var movie_element = $('#movie_modal'); //saves the div that has class movie modal into variable. this is the main modal container.
+    var movie_element = $('#movie_modal');
 
-    movie_element.find('.modal-title').text(movies.title);//jquery .find method utilized here to locate the H4 with class modal-title and adding the movies.title as the text.
+    movie_element.find('.modal-title').text(movies.title);
     var movies_image = $('<img>',{
       src: movies.image,
       class:'img_responsive movies_image col-md-6 col-sm-12'
-    }); //we create an image, sourcing it from our ajax call results using movies.image and add some css bootstrap classes
+    }); 
     var movie_info_div = $('<div>',{
       class: 'movie_info',
-    }); //we create a div with class movie_info that holds all the movie details
+    }); 
 
     var movie_director_div = $('<div>',{
       class: 'movie_director',
       html: '<strong>Director</strong> '+ movies.director,
-    }); //we create a div with class
+    }); 
 
     var movie_rank_div = $('<div>',{
       class: 'movie_rank_div',
@@ -133,6 +141,8 @@ function get_movies(num_movies) {
       html: '<strong>Plot</strong> '+ movies.plot
     });
 
+      // Tried creating button dynamically to overcome speach bug, no success....
+
     // var plot_talk_button = $('<button>',{
     //   class: 'say_it_button  btn btn-default',
     //   html: 'Speak'
@@ -142,14 +152,16 @@ function get_movies(num_movies) {
     movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
     movie_element.modal('show');
 
-    var message = null
+    
+    var message = null;
     message = new SpeechSynthesisUtterance(movies.plot);
-    var voices = speechSynthesis.getVoices();
+    var voices = speechSynthesis.getVoices('Tarik');
     message.voice = voices[$(this).val('Tarik')];
    
     $(".say_it_button").on("click", function () {
     speechSynthesis.speak(message);
-    console.log('say it button clicked');
+    console.log('say it button clicked', this);
+
     // // Hack around voices bug
     // var interval = setInterval(function () {
     // voices = speechSynthesis.getVoices();
@@ -159,6 +171,16 @@ function get_movies(num_movies) {
     //   }
 // }, 60);
 });
+
+
+      //Tried to refresh page on exit from modal to clear speach bug, no success...
+
+    // $(".close_button").on("click", function () {
+    // window.location.reload();
+    // console.log('page refresh');
+    // });
+
+
 }
 
   </script>
@@ -167,7 +189,7 @@ function get_movies(num_movies) {
 <body>
 
 <header>
-  <h1 class="top_title">iTunes Top Movies</h1>
+  <h1 class="top_title neon_title neon">iTunes Top Movies</h1>
 
 </header>
 
