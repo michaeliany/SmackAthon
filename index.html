@@ -153,8 +153,8 @@ function get_movies(num_movies) {
         html: naginta
     });
       //movie_trailer.attr("src", url);
-    movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div,movie_trailer);
-    movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
+    movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
+    movie_element.find('.modal-body').html('').append(movies_image, movie_info_div,movie_trailer);
     movie_element.modal('show');
 }
 
