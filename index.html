@@ -108,6 +108,7 @@ function get_movies(num_movies) {
   function display_one_movie(movies){
       console.log(movies);
       console.log('display one movie called');
+      var url = "https://www.youtube.com/embed/suZcGoRLXkU";
 
     var movie_element = $('#movie_modal'); //saves the div that has class movie modal into variable. this is the main modal container.
 
@@ -133,7 +134,13 @@ function get_movies(num_movies) {
       class: 'movie_plot',
       html: '<strong>Plot</strong> '+ movies.plot
     });
-    movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
+      var naginta = "<iframe width='560' height='315' src="+ url +" frameborder='0' allowfullscreen></iframe>";
+    var movie_trailer = $('<div>', {
+        class: 'movie_trailer',
+        html: naginta
+    });
+      //movie_trailer.attr("src", url);
+    movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div,movie_trailer);
     movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
     movie_element.modal('show');
 }
