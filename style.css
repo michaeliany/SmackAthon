@@ -4,6 +4,7 @@
 
     .movie_image{
       max-width: 12.5%;
+
       height: auto;
     }
 
@@ -37,4 +38,21 @@
 
     .movie_director {
     	margin-top: 20px;
+    }
+
+    .modal-content {
+    	background-image: url('http://wallpoper.com/images/00/31/03/74/grayscale_00310374.jpg');
+    	color: orange;
+    }
+
+    .modal-title {
+    	text-align: center;
+    	font-size: 1.5em;
+    	color: #00CCCC;
+    }
+
+    .modal_buttons {
+    	width: 20%;
+    	background-color: #5252CC;
+    	color: #00CCCC;
     }

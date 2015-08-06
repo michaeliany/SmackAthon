@@ -62,7 +62,7 @@ function display_movies(target_element, movies){
 
 
 $(document).ready(function() {
-get_movies(25);
+get_movies(30);
 });
   
 function get_movies_finished(movies) {
@@ -132,26 +132,32 @@ function get_movies(num_movies) {
       class: 'movie_plot',
       html: '<strong>Plot</strong> '+ movies.plot
     });
+
+    // var plot_talk_button = $('<button>',{
+    //   class: 'say_it_button  btn btn-default',
+    //   html: 'Speak'
+
+    // });
     movie_info_div.append(movie_director_div,movie_rank_div,movie_plot_div);
     movie_element.find('.modal-body').html('').append(movies_image, movie_info_div);
     movie_element.modal('show');
 
-    var message = new SpeechSynthesisUtterance(movies.plot);
+    var message = null
+    message = new SpeechSynthesisUtterance(movies.plot);
     var voices = speechSynthesis.getVoices();
-    message.voice = voices[$(this).val('Google US English')];
+    message.voice = voices[$(this).val('Tarik')];
    
     $(".say_it_button").on("click", function () {
     speechSynthesis.speak(message);
     console.log('say it button clicked');
-    // Hack around voices bug
-    var interval = setInterval(function () {
-    voices = speechSynthesis.getVoices();
-    if (voices.length) clearInterval(interval); else return;
-
-    for (var i = 0; i < voices.length; i++) {
-        $("select").append("<option value=\"" + i + "\">" + voices[i].name + "</option>");
-    }
-}, 10);
+    // // Hack around voices bug
+    // var interval = setInterval(function () {
+    // voices = speechSynthesis.getVoices();
+    // if (voices.length) clearInterval(interval); else return;
+    //   for (var i = 0; i < voices.length; i++) {
+    //       $("select").append("<option value=\"" + i + "\">" + voices[i].name + "</option>");
+    //   }
+// }, 60);
 });
 }
 
@@ -180,8 +186,8 @@ function get_movies(num_movies) {
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default close_button" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default say_it_button">Say It</button>
+        <button type="button" class="btn btn-default close_button modal_buttons" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default say_it_button modal_buttons">Hear Synopsis</button>
       </div>
     </div>
 
