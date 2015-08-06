@@ -38,3 +38,12 @@
     .movie_director {
     	margin-top: 20px;
     }
+
+    .movies_image {
+        dispaly:inline-block;
+    }
+
+
+    .movie_trailer {
+        display:inline-block;
+    }
