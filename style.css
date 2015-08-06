@@ -1,67 +1,63 @@
+.movie_image{
+  max-width: 12.5%;
+  height: auto;
+}
 
 
+.movie_box {
+	margin: 10px;
+	border: 1px solid;
+	color: white;
+	font-size: 1.5em;
+}
 
 
-    .movie_image{
-      max-width: 12.5%;
-      height: auto;
-    }
+body {
+	background-image: url('http://www.thestackbarbq.com/wp-content/uploads/2014/04/wood-background-1600x1200.jpg');
+}
 
-    
-    .movie_box {
-    	margin: 10px;
-    	border: 1px solid;
-    	color: white;
-    	font-size: 1.5em;
-    }
+.movie_rank {
+	margin-top: 20px;
+	font-size: 2.25em;
+	color: orange;
+	font-family: "Courier New", Courier, monospace;
+}
 
 
-    body {
-    	background-image: url('http://www.thestackbarbq.com/wp-content/uploads/2014/04/wood-background-1600x1200.jpg');
-    }
+.movie_title {
+	margin-top: 20px;
+    font-size: 1.3em;
+}
 
-    .movie_rank {
-    	margin-top: 20px;
-    	font-size: 2.25em;
-    	color: orange;
-    	font-family: "Courier New", Courier, monospace;
-    }
+.movie_director {
+	margin-top: 20px;
+}
 
+.movie_price {
+	text-indent: 80px;
+	margin-top: 20px;
+	color: green;
+	font-size: 1.5em;
+}
 
-    .movie_title {
-    	margin-top: 20px;
-        font-size: 1.3em;
-    }
+.modal-content {
+	background-image: url('http://wallpoper.com/images/00/31/03/74/grayscale_00310374.jpg');
+	color: orange;
+	font-family: "Courier New", Courier, monospace;
+}
 
-    .movie_director {
-    	margin-top: 20px;
-    }
+.modal-title {
+	text-align: center;
+	font-size: 1.8em;
+	color: #00CCCC;
+	font-weight: bold;
+}
 
-    .movie_price {
-    	text-indent: 80px;
-    	margin-top: 20px;
-    	color: green;
-    	font-size: 1.5em;
-    }
-
-    .modal-content {
-    	background-image: url('http://wallpoper.com/images/00/31/03/74/grayscale_00310374.jpg');
-    	color: orange;
-    	font-family: "Courier New", Courier, monospace;
-    }
-
-    .modal-title {
-    	text-align: center;
-    	font-size: 1.8em;
-    	color: #00CCCC;
-    	font-weight: bold;
-    }
-
-    .modal_buttons {
-    	width: 130px;
-    	background-color: black;
-    	color: #00CCCC;
-    }
+.modal_buttons {
+	width: 130px;
+	background-color: black;
+	color: #00CCCC;
+}
 
 
 .top_title {
@@ -92,3 +88,10 @@
     -.03em -.03em .8em #f00;
 }
   
+    .movie_trailer {
+        margin-top: 15px;
+    }
+
+    .movies_image_modal {
+        margin-bottom: 15px;
+    }
