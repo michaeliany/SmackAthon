@@ -11,6 +11,19 @@
 
 
   <script>
+var url_array = ["https://www.youtube.com/embed/suZcGoRLXkU","https://www.youtube.com/embed/MyqZf8LiWvM",
+                "https://www.youtube.com/embed/6QT0zKjvRfE","https://www.youtube.com/embed/Y_NiP_bqlns",
+                "https://www.youtube.com/embed/FUS_Q7FsfqU","https://www.youtube.com/embed/bggUmgeMCdc",
+                "https://www.youtube.com/embed/VEXGL-Y5D2A","https://www.youtube.com/embed/Q_hSt6KIHhk",
+                "https://www.youtube.com/embed/m4NCribDx4U","https://www.youtube.com/embed/fUeOBdxSjc8",
+                "https://www.youtube.com/embed/Uia6y9SRsj4","https://www.youtube.com/embed/8CkLC4Zr2Mw",
+                "https://www.youtube.com/embed/VxJsGKn2kyA","https://www.youtube.com/embed/hw53u2mtpMg",
+                "https://www.youtube.com/embed/CEFPEfh1MvY","https://www.youtube.com/embed/Imic4ACxSp0",
+                "https://www.youtube.com/embed/bmD2vogB6yE","https://www.youtube.com/embed/rg1CE7Y7B-Q",
+                "https://www.youtube.com/embed/5bP1f_1o-zo","https://www.youtube.com/embed/MxCRgtdAuBo",
+                "https://www.youtube.com/embed/MdqMICWhxuA","https://www.youtube.com/embed/9bx3KTGBEaI",
+                "https://www.youtube.com/embed/MAt4T-FoEuI","https://www.youtube.com/embed/x6t7vVTxaic",
+                "https://www.youtube.com/embed/2LqzF5WauAw"];
 
 
 function display_movies(target_element, movies){
@@ -72,7 +85,7 @@ function get_movies_finished(movies) {
       $('#top_movies').on('click', '.movie_box', function(){
     var the_movie_index = parseInt($(this).attr('movie_id'))
     console.log(the_movie_index);
-    display_one_movie(movies[the_movie_index]);
+    display_one_movie(movies[the_movie_index],parseInt(the_movie_index));
 
   })
 }
@@ -105,10 +118,10 @@ function get_movies(num_movies) {
           }
 
 /////////////////////////////////
-  function display_one_movie(movies){
+  function display_one_movie(movies, index){
       console.log(movies);
       console.log('display one movie called');
-      var url = "https://www.youtube.com/embed/suZcGoRLXkU";
+      var url = url_array[index];
 
     var movie_element = $('#movie_modal'); //saves the div that has class movie modal into variable. this is the main modal container.
 
